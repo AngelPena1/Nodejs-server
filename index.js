@@ -33,6 +33,11 @@ app.use(cookieParser())
 
 app.use("/api/", apiRouter);
 
+app.get('/', (req, res) => {
+  res.json('Hola Mundo')
+})
+
+
 async function asyncCallDatabase() {
   try {
     await db.authenticate();
@@ -46,7 +51,7 @@ asyncCallDatabase();
 
 app.use(errorHandler)   
 
-app.listen(8000, () => {
-  console.log("Server running on port 8000");
+app.listen(process.env.PORT || 8000, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
 
