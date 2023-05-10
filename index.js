@@ -43,7 +43,7 @@ async function asyncCallDatabase() {
     await db.authenticate();
     console.log("Conexion exitosa a la DB");
   } catch (error) {
-    console.log("Error al conectarse a la DB");
+    console.log("Error al conectarse a la DB: " + error);
   }
 }
 
