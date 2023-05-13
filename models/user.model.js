@@ -1,15 +1,18 @@
-const db = require('../database/db.js')
-const {DataTypes} = require('sequelize')
-// const PersonModel = require('./person.model.js')
+const db = require("../database/db.js");
+const { DataTypes } = require("sequelize");
 
-const UserModel = db.define('USUARIOS', {
-    ID_NEGOCIO: {type: DataTypes.INTEGER},
-    USUARIO: {type: DataTypes.STRING},
-    CLAVE: {type: DataTypes.STRING},
-    ACTIVO: {type: DataTypes.STRING}
-}, {
+const UserModel = db.define(
+  "USUARIOS",
+  {
+    ID_NEGOCIO: { type: DataTypes.INTEGER },
+    USUARIO: { type: DataTypes.STRING },
+    CLAVE: { type: DataTypes.STRING },
+    ACTIVO: { type: DataTypes.STRING },
+  },
+  {
     timestamps: false,
-    tableName: 'USUARIOS' // Nombre personalizado de la tabla
-  })
+    tableName: "USUARIOS",
+  }
+);
 
-module.exports = UserModel
+module.exports = UserModel;

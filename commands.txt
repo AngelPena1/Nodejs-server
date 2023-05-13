@@ -1,0 +1,4 @@
+ssh -i "nodejs-server.pem" ubuntu@ec2-3-83-248-97.compute-1.amazonaws.com
+
+
+ssh -i "nodejs-server.pem" ubuntu@ec2-3-89-141-175.compute-1.amazonaws.com
