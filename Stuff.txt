@@ -1,0 +1,22 @@
+
+To connect ssh:
+
+ssh -i "nodejs-server.pem" ubuntu@ec2-3-89-141-175.compute-1.amazonaws.com
+
+
+
+Bluehost credentials:
+
+https://box2101.bluehost.com:2083/
+username: pemetecc
+password: *Elmismo1974
+
+
+Database credentials:
+
+DB_USERNAME=pemetecc_admin
+DB_PASSWORD=admin01
+DB_HOST=50.87.248.50
+DB_DATABASE=pemetecc_datos
+DB_DIALECT=mysql
+DB_PORT=3306

@@ -1,5 +1,6 @@
-const db = require("../database/db.js");
+const db = require("../../database/db.js");
 const { DataTypes } = require("sequelize");
+const BusinessModel = require('./business.model.js')
 
 const UserModel = db.define(
   "USUARIOS",
@@ -12,7 +13,12 @@ const UserModel = db.define(
   {
     timestamps: false,
     tableName: "USUARIOS",
+    id: "ID_NEGOCIO"
   }
 );
+
+UserModel.belongsTo(BusinessModel, {
+  foreignKey: 'ID_NEGOCIO' 
+});
 
 module.exports = UserModel;
