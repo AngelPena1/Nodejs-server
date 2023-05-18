@@ -15,7 +15,7 @@ app.use(logger)
 
 // app.use(credentials)
 app.use(cors({
-  origin: 'https://ventas.bluelsrd.com/',
+  origin: '*',
 }));
 // app.use(cors(corsOptions));
 
