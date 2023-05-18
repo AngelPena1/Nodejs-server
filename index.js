@@ -15,9 +15,7 @@ app.use(logger)
 
 // app.use(credentials)
 app.use(cors({
-  origin: '*',
-  methods: 'GET, POST, PUT, DELETE',
-  allowedHeaders: 'Content-Type, Authorization'
+  origin: 'https://ventas.bluelsrd.com/',
 }));
 // app.use(cors(corsOptions));
 
