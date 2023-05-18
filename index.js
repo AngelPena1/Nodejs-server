@@ -13,8 +13,9 @@ const app = express();
 
 app.use(logger)
 
-app.use(credentials)
-app.use(cors(corsOptions));
+// app.use(credentials)
+app.use(cors());
+// app.use(cors(corsOptions));
 
 app.use(
   bodyParser.urlencoded({

@@ -2,3 +2,11 @@ ssh -i "nodejs-server.pem" ubuntu@ec2-3-83-248-97.compute-1.amazonaws.com
 
 
 ssh -i "nodejs-server.pem" ubuntu@ec2-3-89-141-175.compute-1.amazonaws.com
+
+
+pm2 start /usr/bin/npm --name "node-js-server" -- run start:prod
+
+
+admin_aws
+Angelps_AdminAWS23
+Angelps_AdminAWS23
