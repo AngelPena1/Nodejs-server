@@ -16,7 +16,7 @@ const getAllUsers = async (req, res) => {
 const handleLogin = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password)
-    return res.status(400).json({ message: "Username and password required." });
+    return res.status(401).json({ message: "Username and password required." });
 
   const foundUser = await UserModel.findOne({
     where: {
@@ -35,7 +35,7 @@ const handleLogin = async (req, res) => {
       },
     });
 
-    res.status(200).json({ businessId: business.ID_NEGOCIO , businessName: business.NOMBRE_NEGOCIO });
+    res.status(200).json({ businessId: business.ID_NEGOCIO , businessName: business.NOMBRE_NEGOCIO, active: foundUser.ACTIVO });
   } else {
     return res.sendStatus(401); //Unauthorized
   }

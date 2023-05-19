@@ -4,5 +4,4 @@ const {handleLogin, getAllUsers} = require("../../../controllers/dataview/user/u
 router.get('/getall', getAllUsers)
 router.post('/auth', handleLogin)
 
-
 module.exports = router;
