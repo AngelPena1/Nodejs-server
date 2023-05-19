@@ -7,7 +7,10 @@ const corsOptions = require('./config/corsOptions.js')
 const { logger } = require('./middlewares/logEvents.js')
 const errorHandler = require('./middlewares/errorHandler.js')
 const cookieParser = require('cookie-parser')
-const credentials = require('./middlewares/credentials.js')
+// const credentials = require('./middlewares/credentials.js')
+const https = require('https')
+const fs = require('fs');
+const path = require("path");
 const app = express();
 
 
@@ -50,9 +53,17 @@ async function asyncCallDatabase() {
 
 asyncCallDatabase();
 
-app.use(errorHandler)   
+app.use(errorHandler)  
 
-app.listen(process.env.PORT || 8000, () => {
-  console.log(`Server running on port ${process.env.PORT || 8000}`);
+const sslServer = https.createServer({
+  key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
+}, app)
+
+sslServer.listen(process.env.PORT || 8000, () => {
+  console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
 });
+// app.listen(process.env.PORT || 8000, () => {
+//   console.log(`Server running on port ${process.env.PORT || 8000}`);
+// });
 
