@@ -59,8 +59,8 @@ app.use(errorHandler)
 
 try {
 const sslServer = https.createServer({
-  key: fs.readFileSync(path.join(__dirname, 'nodejsserver.net', 'privkey.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'nodejsserver.net', 'cert.pem'))
+  key: fs.readFileSync(path.join(__dirname, 'nodejs.net', 'privkey2.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'nodejs.net', 'cert2.pem'))
 }, app)
   
   sslServer.listen(process.env.PORT || 8000, () => {
