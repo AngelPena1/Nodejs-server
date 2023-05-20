@@ -69,9 +69,9 @@ try {
   sslServer.listen(process.env.PORT || 8000, () => {
     console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
   });
-  
+
 } catch (error) {
-  
+  console.error(error)
 }
 
 
