@@ -55,16 +55,13 @@ asyncCallDatabase();
 
 app.use(errorHandler)  
 
-// const sslServer = https.createServer({
-//   key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-//   cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
-// }, app)
+
 
 try {
-  const sslServer = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/live/nodejsserver.net/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/nodejsserver.net/cert.pem')
-  }, app)
+const sslServer = https.createServer({
+  key: fs.readFileSync(path.join(__dirname, 'nodejsserver.net', 'privkey.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'nodejsserver.net', 'cert.pem'))
+}, app)
   
   sslServer.listen(process.env.PORT || 8000, () => {
     console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
