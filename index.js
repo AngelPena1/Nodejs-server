@@ -3,18 +3,17 @@ const cors = require("cors");
 const db = require("./database/db.js");
 const apiRouter = require("./routes/api/api.js");
 const bodyParser = require("body-parser");
-const corsOptions = require('./config/corsOptions.js')
-const { logger } = require('./middlewares/logEvents.js')
-const errorHandler = require('./middlewares/errorHandler.js')
-const cookieParser = require('cookie-parser')
+const corsOptions = require("./config/corsOptions.js");
+const { logger } = require("./middlewares/logEvents.js");
+const errorHandler = require("./middlewares/errorHandler.js");
+const cookieParser = require("cookie-parser");
 // const credentials = require('./middlewares/credentials.js')
-const https = require('https')
-const fs = require('fs');
+const https = require("https");
+const fs = require("fs");
 const path = require("path");
 const app = express();
 
-
-app.use(logger)
+app.use(logger);
 
 // app.use(credentials)
 app.use(cors());
@@ -33,14 +32,13 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // middleware for cookies
-app.use(cookieParser())
+app.use(cookieParser());
 
 app.use("/api/", apiRouter);
 
-app.get('/', (req, res) => {
-  res.json('Hola Mundo')
-})
-
+app.get("/", (req, res) => {
+  res.json("Hola Mundo");
+});
 
 async function asyncCallDatabase() {
   try {
@@ -53,26 +51,24 @@ async function asyncCallDatabase() {
 
 asyncCallDatabase();
 
-app.use(errorHandler)  
-
-
+app.use(errorHandler);
 
 try {
-const sslServer = https.createServer({
-  key: fs.readFileSync(path.join(__dirname, 'nodejs.net', 'privkey2.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'nodejs.net', 'cert2.pem'))
-}, app)
-  
+  const sslServer = https.createServer(
+    {
+      key: fs.readFileSync(path.join(__dirname, "nodejs.net", "privkey2.pem")),
+      cert: fs.readFileSync(path.join(__dirname, "nodejs.net", "cert2.pem")),
+    },
+    app
+  );
+
   sslServer.listen(process.env.PORT || 8000, () => {
     console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
   });
-
 } catch (error) {
-  console.error(error)
+  console.error(error);
 }
-
 
 // app.listen(process.env.PORT || 8000, () => {
 //   console.log(`Server running on port ${process.env.PORT || 8000}`);
 // });
-

@@ -19,4 +19,5 @@ const SalesTrackingModel = db.define(
   }
 );
 
+
 module.exports = SalesTrackingModel;

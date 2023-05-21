@@ -1,3 +1,4 @@
+const SalesTrackingModel = require('./sales_tracking.model.js')
 const db = require("../../database/db.js");
 const { DataTypes } = require("sequelize");
 
@@ -14,5 +15,25 @@ const SalesModel = db.define(
     tableName: "VENTAS",
   }
 );
+
+SalesModel.hasOne(SalesTrackingModel, {
+  foreignKey: { name: 'ID_NEGOCIO', allowNull: false },
+  sourceKey: 'ID_NEGOCIO',
+});
+
+SalesModel.hasOne(SalesTrackingModel, {
+  foreignKey: { name: 'ID_SUCURSAL', allowNull: false },
+  sourceKey: 'ID_SUCURSAL',
+});
+
+SalesTrackingModel.belongsTo(SalesModel, {
+  foreignKey: { name: 'ID_NEGOCIO', allowNull: false },
+  targetKey: 'ID_NEGOCIO',
+});
+
+SalesTrackingModel.belongsTo(SalesModel, {
+  foreignKey: { name: 'ID_SUCURSAL', allowNull: false },
+  targetKey: 'ID_SUCURSAL',
+});
 
 module.exports = SalesModel;

@@ -24,7 +24,7 @@ const handleLogin = async (req, res) => {
     },
   });
 
-  if (!foundUser) return res.sendStatus(401); //Unauthorized
+  if (!foundUser)  return res.status(401).json({ message: "Username or password incorrect" });
 
   const match = password === foundUser.CLAVE;
 
@@ -37,7 +37,7 @@ const handleLogin = async (req, res) => {
 
     res.status(200).json({ businessId: business.ID_NEGOCIO , businessName: business.NOMBRE_NEGOCIO, active: foundUser.ACTIVO });
   } else {
-    return res.sendStatus(401); //Unauthorized
+    return res.status(401).json({ message: "Username or password incorrect" });
   }
 };
 
