@@ -49,7 +49,7 @@ const getBusinessSalesTrackingAndNetSale = async (req, res) => {
           newSales.push({
             ID_NEGOCIO: saleTracking.ID_NEGOCIO,
             ID_SUCURSAL: saleTracking.ID_SUCURSAL,
-            FECHA: formatDate(saleTracking.FECHA),
+            FECHA: saleTracking.FECHA,
             NET_SLS_TTL: sale.NET_SLS_TTL,
             itbis: saleTracking.itbis,
             servicio: saleTracking.servicio,
