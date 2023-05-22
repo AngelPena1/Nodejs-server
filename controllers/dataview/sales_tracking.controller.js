@@ -45,18 +45,19 @@ const getBusinessSalesTrackingAndNetSale = async (req, res) => {
 
     salesTracking.forEach((saleTracking) => {
       sales.forEach((sale) => {
-        if (!(formatDate(saleTracking.FECHA) === sale.FECHA)) return
-        newSales.push({
-          ID_NEGOCIO: saleTracking.ID_NEGOCIO,
-          ID_SUCURSAL: saleTracking.ID_SUCURSAL,
-          FECHA: formatDate(saleTracking.FECHA),
-          NET_SLS_TTL: sale.NET_SLS_TTL,
-          itbis: saleTracking.itbis,
-          servicio: saleTracking.servicio,
-          efectivo: saleTracking.efectivo,
-          tarjetas: saleTracking.tarjetas,
-          otrospagos: saleTracking.otrospagos,
-        })
+        if (formatDate(saleTracking.FECHA) === formatDate(sale.FECHA)) {
+          newSales.push({
+            ID_NEGOCIO: saleTracking.ID_NEGOCIO,
+            ID_SUCURSAL: saleTracking.ID_SUCURSAL,
+            FECHA: formatDate(saleTracking.FECHA),
+            NET_SLS_TTL: sale.NET_SLS_TTL,
+            itbis: saleTracking.itbis,
+            servicio: saleTracking.servicio,
+            efectivo: saleTracking.efectivo,
+            tarjetas: saleTracking.tarjetas,
+            otrospagos: saleTracking.otrospagos,
+          });
+        }
       });
     });
 
