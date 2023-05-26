@@ -53,22 +53,22 @@ asyncCallDatabase();
 
 app.use(errorHandler);
 
-// try {
-//   const sslServer = https.createServer(
-//     {
-//       key: fs.readFileSync(path.join(__dirname, "nodejs.net", "privkey2.pem")),
-//       cert: fs.readFileSync(path.join(__dirname, "nodejs.net", "cert2.pem")),
-//     },
-//     app
-//   );
+try {
+  const sslServer = https.createServer(
+    {
+      key: fs.readFileSync(path.join(__dirname, "nodejs.net", "privkey2.pem")),
+      cert: fs.readFileSync(path.join(__dirname, "nodejs.net", "cert2.pem")),
+    },
+    app
+  );
 
-//   sslServer.listen(process.env.PORT || 8000, () => {
-//     console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
-//   });
-// } catch (error) {
-//   console.error(error);
-// }
+  sslServer.listen(process.env.PORT || 8000, () => {
+    console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
+  });
+} catch (error) {
+  console.error(error);
+}
 
-app.listen(process.env.PORT || 8000, () => {
-  console.log(`Server running on port ${process.env.PORT || 8000}`);
-});
+// app.listen(process.env.PORT || 8000, () => {
+//   console.log(`Server running on port ${process.env.PORT || 8000}`);
+// });

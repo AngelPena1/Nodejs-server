@@ -29,18 +29,31 @@ const handleLogin = async (req, res) => {
   const match = password === foundUser.CLAVE;
 
   if (match) {
-    const business = await BusinessModel.findAll({
-      where: {
-        // ID_NEGOCIO: foundUser.ID_NEGOCIO,
-        CODIGOMULTINEGOCIO: foundUser.CODIGOMULTINEGOCIO,
-        ACTIVO: "S"
-      },
-    });
+    if(foundUser.CODIGOMULTINEGOCIO === 0) {
+      const business = await BusinessModel.findOne({
+        where: {
+          ACTIVO: "S"
+        },
+      })
+      res.status(200).json({
+        active: foundUser.ACTIVO,
+        business: business,
+        multibusiness: false
+      });
+    } else {
+      const business = await BusinessModel.findAll({
+        where: {
+          CODIGOMULTINEGOCIO: foundUser.CODIGOMULTINEGOCIO,
+          ACTIVO: "S"
+        },
+      })
+      res.status(200).json({
+        active: foundUser.ACTIVO,
+        business: business,
+        multibusiness: true
+      });
+    }
 
-    res.status(200).json({
-      active: foundUser.ACTIVO,
-      business: business
-    });
   } else {
     return res.status(401).json({ message: "Username or password incorrect" });
   }
