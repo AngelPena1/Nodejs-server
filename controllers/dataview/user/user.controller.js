@@ -30,8 +30,10 @@ const handleLogin = async (req, res) => {
 
   if (match) {
     if(foundUser.CODIGOMULTINEGOCIO === 0) {
+      // console.log(foundUser);
       const business = await BusinessModel.findOne({
         where: {
+          ID_NEGOCIO: foundUser.ID_NEGOCIO,
           ACTIVO: "S"
         },
       })
