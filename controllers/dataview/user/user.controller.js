@@ -1,6 +1,5 @@
 const UserModel = require("../../../models/dataview/user.model.js");
 const BusinessModel = require("../../../models/dataview/business.model.js");
-// const PersonModel = require("../../models/person.model.js");
 require("dotenv").config();
 
 const getAllUsers = async (req, res) => {
@@ -20,22 +19,28 @@ const handleLogin = async (req, res) => {
 
   const foundUser = await UserModel.findOne({
     where: {
-      USUARIO: username,
+      USUARIO: username
     },
   });
 
-  if (!foundUser)  return res.status(401).json({ message: "Username or password incorrect" });
+  if (!foundUser)
+    return res.status(401).json({ message: "Username or password incorrect" });
 
   const match = password === foundUser.CLAVE;
 
   if (match) {
-    const business = await BusinessModel.findOne({
+    const business = await BusinessModel.findAll({
       where: {
-        ID_NEGOCIO: foundUser.ID_NEGOCIO,
+        // ID_NEGOCIO: foundUser.ID_NEGOCIO,
+        CODIGOMULTINEGOCIO: foundUser.CODIGOMULTINEGOCIO,
+        ACTIVO: "S"
       },
     });
 
-    res.status(200).json({ businessId: business.ID_NEGOCIO , businessName: business.NOMBRE_NEGOCIO, active: foundUser.ACTIVO });
+    res.status(200).json({
+      active: foundUser.ACTIVO,
+      business: business
+    });
   } else {
     return res.status(401).json({ message: "Username or password incorrect" });
   }

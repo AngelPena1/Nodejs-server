@@ -9,6 +9,8 @@ const UserModel = db.define(
     USUARIO: { type: DataTypes.STRING },
     CLAVE: { type: DataTypes.STRING },
     ACTIVO: { type: DataTypes.STRING },
+    MULTINEGOCIO: { type: DataTypes.STRING},
+    CODIGOMULTINEGOCIO: { type: DataTypes.INTEGER}
   },
   {
     timestamps: false,
