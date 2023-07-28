@@ -1,4 +1,4 @@
-const SalesModel = require("../../models/dataview/sales.model.js");
+const SalesModel = require("../../models/pixel/sales.model.js");
 require("dotenv").config();
 
 const getBusinessSales = async (req, res) => {
@@ -10,7 +10,7 @@ const getBusinessSales = async (req, res) => {
       },
       limit: parseInt(limit),
       order: [
-        ['OPENDATE', 'DESC']
+        ['FECHA', 'DESC']
       ]
     });
     res.json(sales);

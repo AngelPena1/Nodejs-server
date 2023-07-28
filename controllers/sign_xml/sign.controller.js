@@ -7,6 +7,7 @@ const path = require("path");
 
 const privateKeyPath = path.join(__dirname, "./certificates/privateKey.pem");
 const certificatePath = path.join(__dirname, "./certificates/certificado.pem");
+const testXML = path.join(__dirname, "test.xml");
 
 function MyKeyInfo() {
   this.getKeyInfo = function (key, prefix) {
@@ -44,10 +45,13 @@ function signXml(xml, xpath) {
 
 const HandleSign = async (req, res) => {
   try {
-    const xml = req.body;
-    const sign = await signXml(xml, "//*[local-name(.)='ECF']");
+    // const xml = req.body;
+    console.log(testXML);
+    const xml = fs.readFileSync(testXML, 'utf8')
+    const sign = await signXml(xml, "//*[local-name(.)='SemillaModel']");
     res.json(sign);
   } catch (error) {
+    console.log(error);
     res.json("Invalid xml");
   }
 };

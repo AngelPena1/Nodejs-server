@@ -1,5 +1,5 @@
 const {Sequelize} = require('sequelize')
-const env = require('../utils/database.js')
+const env = require('../utils/database_dataview.js')
 
 const db = new Sequelize(
     env.DB_DATABASE, //database name

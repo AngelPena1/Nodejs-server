@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./database/db.js");
+const db_dataview = require("./database/db.js");
 const apiRouter = require("./routes/api/api.js");
 const bodyParser = require("body-parser");
 const corsOptions = require("./config/corsOptions.js");
@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 
 async function asyncCallDatabase() {
   try {
-    await db.authenticate();
+    await db_dataview.authenticate();
     console.log("Conexion exitosa a la DB");
   } catch (error) {
     console.log("Error al conectarse a la DB: " + error);
@@ -55,22 +55,22 @@ asyncCallDatabase();
 
 app.use(errorHandler);
 
-try {
-  const sslServer = https.createServer(
-    {
-      key: fs.readFileSync(path.join(__dirname, "nodejs.net", "privkey2.pem")),
-      cert: fs.readFileSync(path.join(__dirname, "nodejs.net", "cert2.pem")),
-    },
-    app
-  );
+// try {
+//   const sslServer = https.createServer(
+//     {
+//       key: fs.readFileSync(path.join(__dirname, "nodejs.net", "privkey2.pem")),
+//       cert: fs.readFileSync(path.join(__dirname, "nodejs.net", "cert2.pem")),
+//     },
+//     app
+//   );
 
-  sslServer.listen(process.env.PORT || 8000, () => {
-    console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
-  });
-} catch (error) {
-  console.error(error);
-}
+//   sslServer.listen(process.env.PORT || 8000, () => {
+//     console.log(`Server running with ssl on port ${process.env.PORT || 8000}`);
+//   });
+// } catch (error) {
+//   console.error(error);
+// }
 
-// app.listen(process.env.PORT || 8000, () => {
-//   console.log(`Server running on port ${process.env.PORT || 8000}`);
-// });
+app.listen(process.env.PORT || 8000, () => {
+  console.log(`Server running on port ${process.env.PORT || 8000}`);
+});
