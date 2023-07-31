@@ -12,4 +12,3 @@ module.exports = {
     DB_DIALECT: data.parsed.DB_DIALECT,
     DB_PORT: data.parsed.DB_PORT
 }
-

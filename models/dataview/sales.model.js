@@ -1,5 +1,5 @@
 const SalesTrackingModel = require('./sales_tracking.model.js')
-const db = require("../../database/db.js");
+const db = require("../../database/db_dataview.js");
 const { DataTypes } = require("sequelize");
 
 const SalesModel = db.define(

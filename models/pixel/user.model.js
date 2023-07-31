@@ -1,9 +1,9 @@
-const db = require("../../database/db.js");
+const db = require("../../database/db_pixel.js");
 const { DataTypes } = require("sequelize");
 const BusinessModel = require('./business.model.js')
 
 const UserModel = db.define(
-  "USUARIOS",
+  "usuarios",
   {
     ID_NEGOCIO: { type: DataTypes.INTEGER },
     USUARIO: { type: DataTypes.STRING },
@@ -14,7 +14,7 @@ const UserModel = db.define(
   },
   {
     timestamps: false,
-    tableName: "USUARIOS",
+    tableName: "usuarios",
     id: "ID_NEGOCIO"
   }
 );

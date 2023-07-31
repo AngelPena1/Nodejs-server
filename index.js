@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const db_dataview = require("./database/db.js");
+const db_dataview = require("./database/db_dataview.js");
+const db_pixel = require("./database/db_pixel.js");
 const apiRouter = require("./routes/api/api.js");
 const bodyParser = require("body-parser");
 const corsOptions = require("./config/corsOptions.js");
@@ -42,16 +43,27 @@ app.get("/", (req, res) => {
   res.json("Hola Mundo");
 });
 
-async function asyncCallDatabase() {
+async function asyncCallDatabaseDataview() {
   try {
     await db_dataview.authenticate();
-    console.log("Conexion exitosa a la DB");
+    console.log("Conexion exitosa a la db_dataview");
   } catch (error) {
-    console.log("Error al conectarse a la DB: " + error);
+    console.log("Error al conectarse a la db_dataview: " + error);
   }
 }
 
-asyncCallDatabase();
+asyncCallDatabaseDataview();
+
+async function asyncCallDatabasePixel() {
+  try {
+    await db_pixel.authenticate();
+    console.log("Conexion exitosa a la db_pixel");
+  } catch (error) {
+    console.log("Error al conectarse a la db_pixel: " + error);
+  }
+}
+
+asyncCallDatabasePixel();
 
 app.use(errorHandler);
 

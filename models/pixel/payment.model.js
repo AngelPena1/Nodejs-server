@@ -1,21 +1,21 @@
-const db = require("../../database/db.js");
+const db = require("../../database/db_pixel.js");
 const { DataTypes } = require("sequelize");
 
-const SalesModel = db.define(
-  "VENTAS",
+const PaymentsModel = db.define(
+  "pagos",
   {
     ID_NEGOCIO: { type: DataTypes.INTEGER },
     ID_SUCURSAL: { type: DataTypes.INTEGER },
     OPENDATE: { type: DataTypes.DATE },
     EMPNAME: { type: DataTypes.INTEGER },
-    DESCRYPT: { type: DataTypes.STRING },
+    DESCRIPT: { type: DataTypes.STRING },
     TENDER: { type: DataTypes.DECIMAL },
     CAMBIO: { type: DataTypes.DECIMAL },
   },
   {
     timestamps: false,
-    tableName: "VENTAS",
+    tableName: "pagos",
   }
 );
 
-module.exports = SalesModel;
+module.exports = PaymentsModel;

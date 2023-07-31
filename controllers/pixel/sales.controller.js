@@ -1,16 +1,18 @@
-const SalesModel = require("../../models/pixel/sales.model.js");
+const PaymentsModel = require("../../models/pixel/payment.model.js");
+const SalesDetailsModel = require("../../models/pixel/sales_details.model.js");
 require("dotenv").config();
 
-const getBusinessSales = async (req, res) => {
+const getBusinessPayments = async (req, res) => {
   try {
-    const { businessid, limit } = req.params;
-    const sales = await SalesModel.findAll({
+    const { business_id, branch_id, limit } = req.params;
+    const sales = await PaymentsModel.findAll({
       where: {
-        ID_NEGOCIO: businessid
+        ID_NEGOCIO: business_id,
+        ID_SUCURSAL: branch_id
       },
       limit: parseInt(limit),
       order: [
-        ['FECHA', 'DESC']
+        ['OPENDATE', 'DESC']
       ]
     });
     res.json(sales);
@@ -19,4 +21,24 @@ const getBusinessSales = async (req, res) => {
   }
 };
 
-module.exports = { getBusinessSales };
+const getBusinessSalesDetails = async (req, res) => {
+  try {
+    const { business_id, branch_id, limit } = req.params;
+    const sales = await SalesDetailsModel.findAll({
+      where: {
+        ID_NEGOCIO: business_id,
+        ID_SUCURSAL: branch_id
+      },
+      limit: parseInt(limit),
+      order: [
+        ['cantidad', 'DESC']
+      ],
+      group: ['descript1'] 
+    });
+    res.json(sales);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+module.exports = { getBusinessPayments, getBusinessSalesDetails };
