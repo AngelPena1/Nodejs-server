@@ -1,5 +1,6 @@
 const db = require("../../database/db_pixel.js");
 const { DataTypes } = require("sequelize");
+const DiscountModel = require('./discount.model.js')
 
 const TransactionModel = db.define(
   "transacciones",
@@ -16,6 +17,8 @@ const TransactionModel = db.define(
     whoclose: { type: DataTypes.INTEGER },
     empname2: { type: DataTypes.STRING },
     nettotal: { type: DataTypes.DECIMAL },
+    tax1: { type: DataTypes.DECIMAL },
+    tax5: { type: DataTypes.DECIMAL },
     total: { type: DataTypes.DECIMAL },
   },
   {
@@ -23,5 +26,12 @@ const TransactionModel = db.define(
     tableName: "transacciones",
   }
 );
+// TransactionModel.belongsTo(DiscountModel, { foreignKey: 'transact' });
+// DiscountModel.belongsTo(TransactionModel, { foreignKey: 'transact' });
+
+TransactionModel.belongsTo(DiscountModel, {
+  foreignKey: 'transact' 
+});
+
 
 module.exports = TransactionModel;

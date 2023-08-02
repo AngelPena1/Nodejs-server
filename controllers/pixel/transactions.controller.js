@@ -1,4 +1,5 @@
 const TransactionModel = require("../../models/pixel/transactions.model.js");
+const DiscountModel = require("../../models/pixel/discount.model.js")
 require("dotenv").config();
 
 const getAllTransactions = async (req, res) => {
@@ -12,6 +13,12 @@ const getAllTransactions = async (req, res) => {
       limit: parseInt(limit),
       order: [
         ['OPENDATE', 'DESC']
+      ],
+      include: [
+        {
+          model: DiscountModel,
+          attributes: ['monto']
+        }
       ]
     });
     res.json(transactions);
