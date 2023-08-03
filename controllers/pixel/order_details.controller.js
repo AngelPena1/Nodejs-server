@@ -29,7 +29,7 @@ const getAllOrders = async (req, res) => {
       where: {
         transact: transact_id
       },
-      attributes: ["descript"]
+      attributes: ["descript", "tender", "cambio"]
     })
     res.json({orders, discounts, payment_methods});
   } catch (error) {
