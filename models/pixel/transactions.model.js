@@ -19,7 +19,7 @@ const TransactionModel = db.define(
     nettotal: { type: DataTypes.DECIMAL },
     tax1: { type: DataTypes.DECIMAL },
     tax5: { type: DataTypes.DECIMAL },
-    total: { type: DataTypes.DECIMAL },
+    total: { type: DataTypes.DECIMAL }
   },
   {
     timestamps: false,
