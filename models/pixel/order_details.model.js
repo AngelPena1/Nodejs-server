@@ -6,6 +6,8 @@ const OrderDetails = db.define(
   {
     id_negocio: { type: DataTypes.INTEGER },
     id_sucursal: { type: DataTypes.INTEGER },
+    uniqueid: { type: DataTypes.STRING },
+    empname1: { type: DataTypes.STRING },
     opendate: { type: DataTypes.DATE },
     transact: { type: DataTypes.INTEGER },
     prodnum: { type: DataTypes.INTEGER },
