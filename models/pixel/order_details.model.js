@@ -15,6 +15,7 @@ const OrderDetails = db.define(
     cantidad: { type: DataTypes.INTEGER },
     precio: { type: DataTypes.DECIMAL },
     timeord: { type: DataTypes.DATE },
+    empname2: { type: DataTypes.DATE },
     recpos: { type: DataTypes.INTEGER },
   },
   {
