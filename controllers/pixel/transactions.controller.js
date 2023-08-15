@@ -12,7 +12,7 @@ const getAllTransactions = async (req, res) => {
         ID_SUCURSAL: branch_id,
       },
       limit: parseInt(limit),
-      order: [["OPENDATE", "DESC"]],
+      order: [["transact", "DESC"]],
       include: [
         {
           model: DiscountModel,
