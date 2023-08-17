@@ -3,7 +3,6 @@ require("dotenv").config();
 
 const getBranchsByBusinessId = async (req, res) => {
   try {
-    const { business_id } = req.params.business_id;
     const branches = await BranchModel.findAll({
       where: {
         ID_NEGOCIO: req.params.business_id,
