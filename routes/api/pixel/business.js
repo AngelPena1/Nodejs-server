@@ -17,6 +17,9 @@ const {
 const {
   getBranchsByBusinessId,
 } = require("../../../controllers/pixel/branch.controller.js");
+const {
+  getAllNcf607ByBusinessAndBranch,
+} = require("../../../controllers/pixel/ncf607.controller.js");
 
 router.get("/getall", getAllBusiness);
 router.get("/:business_id/payment/branch/:branch_id/limit/:limit", getBusinessPayments);
@@ -26,5 +29,6 @@ router.get("/:business_id/transactions/branch/:branch_id/limit/:limit", getAllTr
 router.get("/:business_id/transactions/branch/:branch_id/transact/:transact_id", getByTransactId);
 router.get("/:business_id/transactions/branch/:branch_id/employee/:employee", getTransactionByEmployee);
 router.get("/:business_id/get/branches", getBranchsByBusinessId);
+router.get("/:business_id/branch/:branch_id/ncf/getall", getAllNcf607ByBusinessAndBranch);
 
 module.exports = router;
