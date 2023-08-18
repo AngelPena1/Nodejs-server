@@ -4,10 +4,11 @@ require("dotenv").config();
 const getAllNcf607ByBusinessAndBranch = async (req, res) => {
   try {
     const { business_id, branch_id } = req.params;
-    console.log(business_id, branch_id);
     const ncf607 = await Ncf607Model.findAll({
+      where: {
         id_negocio: business_id,
         id_sucursal: branch_id
+      }
     });
     res.json(ncf607);
   } catch (error) {
