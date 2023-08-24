@@ -20,6 +20,9 @@ const {
 const {
   getAllNcf607ByBusinessAndBranch,
 } = require("../../../controllers/pixel/ncf607.controller.js");
+const {
+  getSalesSummary
+} = require("../../../controllers/pixel/sales_summary.controller");
 
 router.get("/getall", getAllBusiness);
 router.get("/:business_id/payment/branch/:branch_id/limit/:limit", getBusinessPayments);
@@ -30,5 +33,6 @@ router.get("/:business_id/transactions/branch/:branch_id/transact/:transact_id",
 router.get("/:business_id/transactions/branch/:branch_id/employee/:employee", getTransactionByEmployee);
 router.get("/:business_id/get/branches", getBranchsByBusinessId);
 router.get("/:business_id/branch/:branch_id/ncf/getall", getAllNcf607ByBusinessAndBranch);
+router.get("/:business_id/branch/:branch_id/sales/summary/firstdate/:first_date/seconddate/:second_date", getSalesSummary);
 
 module.exports = router;
