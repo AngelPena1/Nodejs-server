@@ -1,11 +1,12 @@
-const SalesCategoriesModel = require('../../models/pixel/sales_categories.model');
+const SalesSummaryGroupModel = require('../../models/pixel/sales_summary_group.model');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 require("dotenv").config();
 
-const getSalesCategories = async (req, res) => {
+const getSalesSummaryGroup = async (req, res) => {
   try {
     const { business_id, branch_id, first_date, second_date} = req.params;
+
     const firstDate = () => {
       const date = new Date(first_date)
       const month = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}` : `0${date.getMonth() + 1}`
@@ -19,22 +20,22 @@ const getSalesCategories = async (req, res) => {
       const day = date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
       return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
     }
-
-    const salesCategories = await SalesCategoriesModel.findAll({
+    
+    const summary = await SalesSummaryGroupModel.findAll({
       attributes: ["descript1", [sequelize.fn("SUM", sequelize.col("cantidad")), "cantidad"], [sequelize.fn("SUM", sequelize.col("total")), "total"]],
       where: {
         ID_NEGOCIO: business_id,
         ID_SUCURSAL: branch_id,
         opendate: {
           [Op.between]: [firstDate(), secondDate()]
-        }
+        },
       },
       group: ["descript1"]
     });
-    res.json(salesCategories);
+    res.json(summary);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-module.exports = { getSalesCategories };
+module.exports = { getSalesSummaryGroup };

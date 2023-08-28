@@ -24,6 +24,9 @@ const {
   getSalesSummary
 } = require("../../../controllers/pixel/sales_summary.controller");
 const {
+  getSalesSummaryGroup
+} = require("../../../controllers/pixel/sales_summary_group.controller");
+const {
   getSalesCategories
 } = require("../../../controllers/pixel/sales_categories.controller");
 
@@ -38,5 +41,6 @@ router.get("/:business_id/get/branches", getBranchsByBusinessId);
 router.get("/:business_id/branch/:branch_id/ncf/getall", getAllNcf607ByBusinessAndBranch);
 router.get("/:business_id/branch/:branch_id/sales/summary/firstdate/:first_date/seconddate/:second_date", getSalesSummary);
 router.get("/:business_id/branch/:branch_id/sales/categories/firstdate/:first_date/seconddate/:second_date", getSalesCategories);
+router.get("/:business_id/branch/:branch_id/sales/summary/category/group/firstdate/:first_date/seconddate/:second_date", getSalesSummaryGroup);
 
 module.exports = router;
