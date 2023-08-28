@@ -1,11 +1,11 @@
-const SalesSummary = require('../../models/pixel/sales_summary.model');
+const SalesCategoriesModel = require('../../models/pixel/sales_categories.model');
 const { Op } = require('sequelize');
 require("dotenv").config();
 
-const getSalesSummary = async (req, res) => {
+const getSalesCategories = async (req, res) => {
   try {
     const { business_id, branch_id, first_date, second_date} = req.params;
-    const summary = await SalesSummary.findAll({
+    const salesCategories = await SalesCategoriesModel.findAll({
       where: {
         ID_NEGOCIO: business_id,
         ID_SUCURSAL: branch_id,
@@ -17,10 +17,10 @@ const getSalesSummary = async (req, res) => {
         ['OPENDATE', 'ASC']
       ]
     });
-    res.json(summary);
+    res.json(salesCategories);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-module.exports = { getSalesSummary };
+module.exports = { getSalesCategories };
