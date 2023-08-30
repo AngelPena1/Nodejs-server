@@ -4,6 +4,7 @@ const {
 } = require("../../../controllers/pixel/business.controller.js");
 const {
   getAllTransactions,
+  getTransactionPlaces,
   getByTransactId,
   getTransactionByEmployee
 } = require("../../../controllers/pixel/transactions.controller.js");
@@ -35,6 +36,7 @@ router.get("/:business_id/payment/branch/:branch_id/limit/:limit", getBusinessPa
 router.get("/:business_id/sales/branch/:branch_id/limit/:limit", getBusinessSalesDetails);
 router.get("/:business_id/branch/:branch_id/orders/transact/:transact_id", getAllOrders);
 router.get("/:business_id/transactions/branch/:branch_id/limit/:limit", getAllTransactions);
+router.get("/:business_id/branch/:branch_id/transactions/summary/places/firstdate/:first_date/seconddate/:second_date", getTransactionPlaces);
 router.get("/:business_id/transactions/branch/:branch_id/transact/:transact_id", getByTransactId);
 router.get("/:business_id/transactions/branch/:branch_id/employee/:employee", getTransactionByEmployee);
 router.get("/:business_id/get/branches", getBranchsByBusinessId);
