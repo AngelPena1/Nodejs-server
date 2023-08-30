@@ -9,15 +9,15 @@ const getSalesSummaryGroup = async (req, res) => {
 
     const firstDate = () => {
       const date = new Date(first_date)
-      const month = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}` : `0${date.getMonth() + 1}`
-      const day = date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
+      const month = date.getUTCMonth() + 1 > 9 ? `${date.getUTCMonth() + 1}` : `0${date.getUTCMonth() + 1}`
+      const day = date.getUTCDate() > 9 ? `${date.getUTCDate()}` : `0${date.getUTCDate()}`
       return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
     }
 
     const secondDate = () => {
       const date = new Date(second_date)
-      const month = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}` : `0${date.getMonth() + 1}`
-      const day = date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
+      const month = date.getUTCMonth() + 1 > 9 ? `${date.getUTCMonth() + 1}` : `0${date.getUTCMonth() + 1}`
+      const day = date.getUTCDate() > 9 ? `${date.getUTCDate()}` : `0${date.getUTCDate()}`
       return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
     }
     
