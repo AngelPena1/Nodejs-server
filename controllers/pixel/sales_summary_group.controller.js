@@ -1,36 +1,31 @@
-const SalesSummaryGroupModel = require('../../models/pixel/sales_summary_group.model');
-const { Op } = require('sequelize');
-const sequelize = require('sequelize');
+const SalesSummaryGroupModel = require("../../models/pixel/sales_summary_group.model");
+const { firstFormatDate, secondFormatDate } = require("../../utils/formatDate.js");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 require("dotenv").config();
 
 const getSalesSummaryGroup = async (req, res) => {
   try {
-    const { business_id, branch_id, first_date, second_date} = req.params;
+    const { business_id, branch_id, first_date, second_date } = req.params;
 
-    const firstDate = () => {
-      const date = new Date(first_date)
-      const month = date.getUTCMonth() + 1 > 9 ? `${date.getUTCMonth() + 1}` : `0${date.getUTCMonth() + 1}`
-      const day = date.getUTCDate() > 9 ? `${date.getUTCDate()}` : `0${date.getUTCDate()}`
-      return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
-    }
-
-    const secondDate = () => {
-      const date = new Date(second_date)
-      const month = date.getUTCMonth() + 1 > 9 ? `${date.getUTCMonth() + 1}` : `0${date.getUTCMonth() + 1}`
-      const day = date.getUTCDate() > 9 ? `${date.getUTCDate()}` : `0${date.getUTCDate()}`
-      return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
-    }
-    
     const summary = await SalesSummaryGroupModel.findAll({
-      attributes: ["descript1", [sequelize.fn("SUM", sequelize.col("cantidad")), "cantidad"], [sequelize.fn("SUM", sequelize.col("total")), "total"]],
+      attributes: [
+        "descript1",
+        [sequelize.fn("SUM", sequelize.col("cantidad")), "cantidad"],
+        [sequelize.fn("SUM", sequelize.col("total")), "total"],
+      ],
       where: {
         ID_NEGOCIO: business_id,
         ID_SUCURSAL: branch_id,
         opendate: {
-          [Op.between]: [firstDate(), secondDate()]
+          [Op.between]: [
+            firstFormatDate(first_date),
+            secondFormatDate(second_date),
+          ],
         },
       },
-      group: ["descript1"]
+      group: ["descript1"],
+      order: [["total", "DESC"]]
     });
     res.json(summary);
   } catch (error) {

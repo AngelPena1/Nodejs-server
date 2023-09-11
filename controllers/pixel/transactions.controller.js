@@ -1,7 +1,8 @@
 const TransactionModel = require("../../models/pixel/transactions.model.js");
 const DiscountModel = require("../../models/pixel/discount.model.js");
-const { Op } = require('sequelize'); 
-const sequelize = require('sequelize');
+const { firstFormatDate, secondFormatDate } = require("../../utils/formatDate.js");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 require("dotenv").config();
 
 const getAllTransactions = async (req, res) => {
@@ -29,32 +30,25 @@ const getAllTransactions = async (req, res) => {
 
 const getTransactionPlaces = async (req, res) => {
   try {
-    const { business_id, branch_id, first_date, second_date} = req.params;
-
-    const firstDate = () => {
-      const date = new Date(first_date)
-      const month = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}` : `0${date.getMonth() + 1}`
-      const day = date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
-      return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
-    }
-
-    const secondDate = () => {
-      const date = new Date(second_date)
-      const month = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}` : `0${date.getMonth() + 1}`
-      const day = date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
-      return `${date.getFullYear()}-${month}-${day}T00:00:00.000Z`
-    }
+    const { business_id, branch_id, first_date, second_date } = req.params;
 
     const transactions = await TransactionModel.findAll({
-      attributes: ["descript1", [sequelize.fn("SUM", sequelize.col("total")), "total"]],
+      attributes: [
+        "descript1",
+        [sequelize.fn("SUM", sequelize.col("nettotal")), "nettotal"],
+      ],
       where: {
         ID_NEGOCIO: business_id,
         ID_SUCURSAL: branch_id,
         opendate: {
-          [Op.between]: [firstDate(), secondDate()]
+          [Op.between]: [
+            firstFormatDate(first_date),
+            secondFormatDate(second_date),
+          ],
         },
       },
-      group: ["descript1"]
+      group: ["descript1"],
+      order: [["nettotal", "DESC"]]
     });
     res.json(transactions);
   } catch (error) {
@@ -86,17 +80,13 @@ const getByTransactId = async (req, res) => {
 
 const getTransactionByEmployee = async (req, res) => {
   try {
-    const { business_id, branch_id, employee } =
-      req.params;
+    const { business_id, branch_id, employee } = req.params;
 
     const transaction = await TransactionModel.findAll({
       where: {
         ID_NEGOCIO: business_id,
         ID_SUCURSAL: branch_id,
-        [Op.or]: [
-          { empname1: employee },
-          { empname2: employee },
-        ]
+        [Op.or]: [{ empname1: employee }, { empname2: employee }],
       },
       include: [
         {
@@ -111,4 +101,9 @@ const getTransactionByEmployee = async (req, res) => {
   }
 };
 
-module.exports = { getAllTransactions, getTransactionPlaces, getByTransactId, getTransactionByEmployee };
+module.exports = {
+  getAllTransactions,
+  getTransactionPlaces,
+  getByTransactId,
+  getTransactionByEmployee,
+};

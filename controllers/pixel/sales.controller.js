@@ -1,5 +1,8 @@
 const PaymentsModel = require("../../models/pixel/payment.model.js");
-const SalesDetailsModel = require("../../models/pixel/sales_details.model.js");
+const SalesProductDetailModel = require("../../models/pixel/sales_product_detail.js");
+const { firstFormatDate, secondFormatDate } = require("../../utils/formatDate.js");
+const sequelize = require("sequelize");
+const { Op } = require("sequelize");
 require("dotenv").config();
 
 const getBusinessPayments = async (req, res) => {
@@ -23,18 +26,36 @@ const getBusinessPayments = async (req, res) => {
 
 const getBusinessSalesDetails = async (req, res) => {
   try {
-    const { business_id, branch_id, limit } = req.params;
-    const sales = await SalesDetailsModel.findAll({
+    const { business_id, branch_id, first_date, second_date } = req.params;
+    const sales = await SalesProductDetailModel.findAll({
+      attributes: [
+        'descript1',
+        'descript',
+        'prodnum',
+        'summarynum',
+        [sequelize.fn("SUM", sequelize.col("cantidad")), "cantidad"],
+        [sequelize.fn("SUM", sequelize.col("total")), "total"]
+      ],
       where: {
         ID_NEGOCIO: business_id,
-        ID_SUCURSAL: branch_id
+        ID_SUCURSAL: branch_id,
+        opendate: {
+          [Op.between]: [
+            firstFormatDate(first_date),
+            secondFormatDate(second_date),
+          ],
+        },
       },
-      limit: parseInt(limit),
       order: [
-        ['cantidad', 'DESC']
+        ['summarynum', 'Asc'],
+        ['reportno', 'Asc'],
+        ['total', 'Desc'],
+        ['descript', 'Asc'],
       ],
-      group: ['descript1'] 
+      group: ['descript2', 'descript1', 'prodnum']
     });
+
+
     res.json(sales);
   } catch (error) {
     res.json({ message: error.message });
