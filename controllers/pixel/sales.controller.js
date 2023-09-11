@@ -54,7 +54,7 @@ const getBusinessSalesDetails = async (req, res) => {
       ],
       group: ['descript2', 'descript1', 'prodnum']
     });
-
+    
 
     res.json(sales);
   } catch (error) {
