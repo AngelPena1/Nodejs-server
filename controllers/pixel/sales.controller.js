@@ -27,10 +27,10 @@ const getBusinessPayments = async (req, res) => {
 const getBusinessSalesDetails = async (req, res) => {
   try {
     const { business_id, branch_id, first_date, second_date } = req.params;
-    const sales = await SalesProductDetailModel.findAll({
+    const salesDetail = await SalesProductDetailModel.findAll({
       attributes: [
-        'descript1',
-        'descript',
+        ['descript1', 'category'],
+        ['descript', 'product'],
         'prodnum',
         'summarynum',
         [sequelize.fn("SUM", sequelize.col("cantidad")), "cantidad"],
@@ -55,8 +55,7 @@ const getBusinessSalesDetails = async (req, res) => {
       group: ['descript2', 'descript1', 'prodnum']
     });
     
-
-    res.json(sales);
+    res.json(salesDetail);
   } catch (error) {
     res.json({ message: error.message });
   }
