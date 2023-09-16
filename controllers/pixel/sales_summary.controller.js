@@ -1,20 +1,18 @@
-const SalesSummary = require('../../models/pixel/sales_summary.model');
-const { Op } = require('sequelize');
+const SalesSummary = require("../../models/pixel/sales_summary.model");
+const { Op } = require("sequelize");
 require("dotenv").config();
 
 const getSalesSummaryByBusiness = async (req, res) => {
   try {
-    const { business_id, first_date, second_date} = req.params;
+    const { business_id, first_date, second_date } = req.params;
     const summary = await SalesSummary.findAll({
       where: {
         ID_NEGOCIO: business_id,
         opendate: {
-            [Op.between]: [new Date(first_date), new Date(second_date)]
-        }
+          [Op.between]: [new Date(first_date), new Date(second_date)],
+        },
       },
-      order: [
-        ['OPENDATE', 'ASC']
-      ]
+      order: [["OPENDATE", "ASC"]],
     });
     res.json(summary);
   } catch (error) {
@@ -22,20 +20,18 @@ const getSalesSummaryByBusiness = async (req, res) => {
   }
 };
 
-const getSalesSummary = async (req, res) => {
+const getSalesSummaryByBranch = async (req, res) => {
   try {
-    const { business_id, branch_id, first_date, second_date} = req.params;
+    const { business_id, branch_id, first_date, second_date } = req.params;
     const summary = await SalesSummary.findAll({
       where: {
         ID_NEGOCIO: business_id,
         ID_SUCURSAL: branch_id,
         opendate: {
-            [Op.between]: [new Date(first_date), new Date(second_date)]
-        }
+          [Op.between]: [new Date(first_date), new Date(second_date)],
+        },
       },
-      order: [
-        ['OPENDATE', 'ASC']
-      ]
+      order: [["OPENDATE", "ASC"]],
     });
     res.json(summary);
   } catch (error) {
@@ -43,4 +39,4 @@ const getSalesSummary = async (req, res) => {
   }
 };
 
-module.exports = { getSalesSummaryByBusiness, getSalesSummary };
+module.exports = { getSalesSummaryByBusiness, getSalesSummaryByBranch };

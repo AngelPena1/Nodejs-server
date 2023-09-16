@@ -22,7 +22,7 @@ const {
   getAllNcf607ByBusinessAndBranch,
 } = require("../../../controllers/pixel/ncf607.controller.js");
 const {
-  getSalesSummary,
+  getSalesSummaryByBranch,
   getSalesSummaryByBusiness
 } = require("../../../controllers/pixel/sales_summary.controller");
 const {
@@ -45,7 +45,7 @@ router.get("/:business_id/transactions/branch/:branch_id/transact/:transact_id",
 router.get("/:business_id/transactions/branch/:branch_id/employee/:employee", getTransactionByEmployee);
 router.get("/:business_id/get/branches", getBranchsByBusinessId);
 router.get("/:business_id/branch/:branch_id/ncf/getall", getAllNcf607ByBusinessAndBranch);
-router.get("/:business_id/branch/:branch_id/sales/summary/firstdate/:first_date/seconddate/:second_date", getSalesSummary);
+router.get("/:business_id/branch/:branch_id/sales/summary/firstdate/:first_date/seconddate/:second_date", getSalesSummaryByBranch);
 router.get("/:business_id/sales/summary/firstdate/:first_date/seconddate/:second_date", getSalesSummaryByBusiness);
 router.get("/:business_id/branch/:branch_id/sales/categories/firstdate/:first_date/seconddate/:second_date", getSalesCategories);
 router.get("/:business_id/branch/:branch_id/sales/summary/category/group/firstdate/:first_date/seconddate/:second_date", getSalesSummaryGroup);
