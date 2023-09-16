@@ -9,9 +9,6 @@ const { logger } = require("./middlewares/logEvents.js");
 const errorHandler = require("./middlewares/errorHandler.js");
 const cookieParser = require("cookie-parser");
 // const credentials = require('./middlewares/credentials.js')
-const https = require("https");
-const fs = require("fs");
-const path = require("path");
 const app = express();
 
 app.use(logger);
