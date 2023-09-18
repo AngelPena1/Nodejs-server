@@ -32,6 +32,7 @@ const {
   getSalesCategories
 } = require("../../../controllers/pixel/sales_categories.controller");
 const {
+  getPaymentsGroupByBusiness,
   getPaymentsByBusiness
 } = require("../../../controllers/pixel/payment.controller");
 
@@ -49,6 +50,7 @@ router.get("/:business_id/branch/:branch_id/sales/summary/firstdate/:first_date/
 router.get("/:business_id/sales/summary/firstdate/:first_date/seconddate/:second_date", getSalesSummaryByBusiness);
 router.get("/:business_id/branch/:branch_id/sales/categories/firstdate/:first_date/seconddate/:second_date", getSalesCategories);
 router.get("/:business_id/branch/:branch_id/sales/summary/category/group/firstdate/:first_date/seconddate/:second_date", getSalesSummaryGroup);
-router.get("/:business_id/branch/:branch_id/sales/summary/payments/firstdate/:first_date/seconddate/:second_date", getPaymentsByBusiness);
+router.get("/:business_id/branch/:branch_id/sales/summary/payments/firstdate/:first_date/seconddate/:second_date", getPaymentsGroupByBusiness);
+router.get("/:business_id/branch/:branch_id/sales/payments/firstdate/:first_date/seconddate/:second_date", getPaymentsByBusiness);
 
 module.exports = router;

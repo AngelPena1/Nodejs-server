@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 require("dotenv").config();
 
-const getPaymentsByBusiness = async (req, res) => {
+const getPaymentsGroupByBusiness = async (req, res) => {
   try {
     const { business_id, branch_id, first_date, second_date } = req.params;
 
@@ -33,4 +33,26 @@ const getPaymentsByBusiness = async (req, res) => {
   }
 };
 
-module.exports = { getPaymentsByBusiness };
+const getPaymentsByBusiness = async (req, res) => {
+  try {
+    const { business_id, branch_id, first_date, second_date } = req.params;
+
+    const payments = await PaymentModel.findAll({
+      where: {
+        ID_NEGOCIO: business_id,
+        ID_SUCURSAL: branch_id,
+        opendate: {
+          [Op.between]: [
+            firstFormatDate(first_date),
+            secondFormatDate(second_date),
+          ],
+        },
+      }
+    });
+    res.json(payments);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+module.exports = { getPaymentsGroupByBusiness, getPaymentsByBusiness };
