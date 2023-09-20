@@ -10,6 +10,7 @@ const getPaymentsGroupByBusiness = async (req, res) => {
 
     const payments = await PaymentModel.findAll({
       attributes: [
+        "opendate",
         "descript",
         [sequelize.fn("SUM", sequelize.col("tender")), "tender"],
         [sequelize.fn("SUM", sequelize.col("cambio")), "cambio"],
@@ -24,8 +25,8 @@ const getPaymentsGroupByBusiness = async (req, res) => {
           ],
         },
       },
-      group: ["descript"],
-      order: [["tender", "DESC"]]
+      group: ["opendate", "descript"],
+      order: [["opendate", "DESC"], ["tender", "DESC"]]
     });
     res.json(payments);
   } catch (error) {
@@ -47,7 +48,8 @@ const getPaymentsByBusiness = async (req, res) => {
             secondFormatDate(second_date),
           ],
         },
-      }
+      },
+      order: [["opendate", "DESC"], ["tender", "DESC"]]
     });
     res.json(payments);
   } catch (error) {

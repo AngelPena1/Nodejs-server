@@ -4,13 +4,13 @@ const { DataTypes } = require("sequelize");
 const PaymentsModel = db.define(
   "pagos",
   {
-    ID_NEGOCIO: { type: DataTypes.INTEGER },
-    ID_SUCURSAL: { type: DataTypes.INTEGER },
-    OPENDATE: { type: DataTypes.DATE },
-    EMPNAME: { type: DataTypes.INTEGER },
-    DESCRIPT: { type: DataTypes.STRING },
-    TENDER: { type: DataTypes.DECIMAL },
-    CAMBIO: { type: DataTypes.DECIMAL },
+    id_negocio: { type: DataTypes.INTEGER },
+    id_sucursal: { type: DataTypes.INTEGER },
+    opendate: { type: DataTypes.DATE },
+    empname: { type: DataTypes.INTEGER },
+    descript: { type: DataTypes.STRING },
+    tender: { type: DataTypes.DECIMAL },
+    cambio: { type: DataTypes.DECIMAL },
   },
   {
     timestamps: false,

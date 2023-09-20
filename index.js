@@ -40,16 +40,16 @@ app.get("/", (req, res) => {
   res.json("Hola Mundo");
 });
 
-async function asyncCallDatabaseDataview() {
-  try {
-    await db_dataview.authenticate();
-    console.log("Conexion exitosa a la db_dataview");
-  } catch (error) {
-    console.log("Error al conectarse a la db_dataview: " + error);
-  }
-}
+// async function asyncCallDatabaseDataview() {
+//   try {
+//     await db_dataview.authenticate();
+//     console.log("Conexion exitosa a la db_dataview");
+//   } catch (error) {
+//     console.log("Error al conectarse a la db_dataview: " + error);
+//   }
+// }
 
-asyncCallDatabaseDataview();
+// asyncCallDatabaseDataview();
 
 async function asyncCallDatabasePixel() {
   try {
